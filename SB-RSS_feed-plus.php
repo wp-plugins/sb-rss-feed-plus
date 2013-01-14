@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: SB-RSS_feed-plus
-Plugin URI: 
+Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed item and optimize feed for FlipBoard.
 Version: 0.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
