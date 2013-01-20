@@ -6,7 +6,7 @@ Requires at least: 3.3.1
 Tested up to: 3.5
 Stable tag: 1.0
 
-This plugin will add post thumbnail to RSS feed item and optimize feed for FlipBoard
+This plugin will add post thumbnail to RSS feed items.
 
 == Description ==
 
