@@ -23,6 +23,10 @@ You can also add server signature to end of feed content in form "Source: XYZ".
 
 No more settings are needed.
 
+== Screenshots ==
+
+1. Plugin settings
+
 == Changelog ==
 
 = 1.0 =
