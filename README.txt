@@ -1,20 +1,18 @@
 === SB RSS feed plus ===
 Contributors: ladislav.soukup@gmail.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKTGSXPFWKG&lc=CZ&item_name=Ladislav%20Soukup&item_number=SB%20RSS%20feed%20plus%20%5bWP%2dPlugin%5d&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
-Tags: rss, feed, image, add, enhance, enhanced, plus, better
-Requires at least: 3.5.0
-Tested up to: 3.5.0
-Stable tag: 0.2
+Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, content:encoded, media:content, media, content
+Requires at least: 3.3.1
+Tested up to: 3.5
+Stable tag: 1.0
 
 This plugin will add post thumbnail to RSS feed item and optimize feed for FlipBoard
 
 == Description ==
 
-This plugin will add post thumbnail to RSS feed as media:content and enclosure tags.
-Image is also added to HTML part of description tag.
-Also content:encoded tag is added including full text (html is stripped) - this will allow better display of content in FlipBoard
-
-FlipBoard feed format info: add http://dl.dropbox.com/u/84795419/flipboard-rss-feed-spec.html
+This plugin will add post thumbnail to RSS feed as "media:content" and "enclosure" tags.
+Image is also added to HTML part of "description" and "content:encoded" tags.
+You can also add server signature to end of feed content in form "Source: XYZ".
 
 
 == Installation ==
@@ -26,6 +24,12 @@ FlipBoard feed format info: add http://dl.dropbox.com/u/84795419/flipboard-rss-f
 No more settings are needed.
 
 == Changelog ==
+
+= 1.0 =
+
+- added settings
+- few fixes, code clanup
+- Czech translation updated
 
 = 0.2 =
 
