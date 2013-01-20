@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed item and optimize feed for FlipBoard.
-Version: 0.1
+Version: 0.2
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -38,7 +38,7 @@ class SB_RSS_feed_plus {
 	function __construct() {
 		
 		// Load plugin text domain
-		//add_action( 'init', array( $this, 'plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
 		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -125,30 +125,22 @@ class SB_RSS_feed_plus {
 				echo '<media:copyright>' . get_bloginfo( 'name' ) . '</media:copyright>' . "\n";
 				echo '</media:content>' . "\n";
 			}
-			
-			echo '<content:encoded><![CDATA[';
-			echo '<hgroup><h1>' . $post->post_title . '</h1></hgroup>';
-			
-			if ($image !== false) {
-				echo '<figure>';
-				echo '<img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" /></div>';
-				echo '<figcaption>' . $post->post_title . '</figcaption>';
-				echo '</figure>';
-			}
-			echo '<div>' . wp_strip_all_tags( do_shortcode( $post->post_content ), true ) . '</div>';
-			echo ']]></content:encoded>' . "\n";
-		
 		}
 	}
 	
 	public function feed_update_content($content) {
 		global $post;
+		
 		$content_new = '';
 		$image = $this->feed_getImage();
 		
 		if(has_post_thumbnail($post->ID)) {
-			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" alt="' . $post->post_title . '" /></div>';
+			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" /></div>';
 			$content_new .= '<div>' . $content . '</div>';
+			$content_new .= '<div>&nbsp;</div><div><em>';
+			$content_new .=  __( 'Source: ', 'SB_RSS_feed_plus' );
+			$content_new .= '<a href="' . get_permalink($post->ID) . '" target="_blank">' . get_bloginfo( 'name' ) . '</a>';
+			$content_new .= '</em></div>';
 		}
 		return $content_new;
 	}
