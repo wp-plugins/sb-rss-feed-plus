@@ -1,4 +1,4 @@
-=== SB RSS feed plus [beta] ===
+=== SB RSS feed plus ===
 Contributors: ladislav.soukup@gmail.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKTGSXPFWKG&lc=CZ&item_name=Ladislav%20Soukup&item_number=SB%20RSS%20feed%20plus%20%5bWP%2dPlugin%5d&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: rss, feed, image, add, enhance, enhanced, plus, better
@@ -25,14 +25,10 @@ FlipBoard feed format info: add http://dl.dropbox.com/u/84795419/flipboard-rss-f
 
 No more settings are needed.
 
-== Frequently Asked Questions ==
-
-== Screenshots ==
-
-
 == Changelog ==
 
 = 0.2 =
+
 - fixed <content:encoded> - now it extends WordPress default tag
 - fixed repeated excerpt problem
 - full text of post is only embeded if this option is allowed in WordPress (native RSS settings)
