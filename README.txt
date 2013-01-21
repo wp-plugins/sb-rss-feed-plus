@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, content:encoded, media:content, media, content
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 1.0.1
+Stable tag: 1.1
 
 This plugin will add post thumbnail to RSS feed items.
 
@@ -28,6 +28,13 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+
+= 1.1 =
+
+- settings page updated
+- settings moved under "Settings" section of WordPress
+- default settings fixed
+- warning notification if settings are out of date (after plugin update)
 
 = 1.0 =
 

@@ -1,5 +1,4 @@
 <?php
-
 global $wpsf_settings;
 
 $wpsf_settings[] = array(
@@ -63,5 +62,4 @@ $wpsf_settings[] = array(
         )
 	)
 );
-
 ?>

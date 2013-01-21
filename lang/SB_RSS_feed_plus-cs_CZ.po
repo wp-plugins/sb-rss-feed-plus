@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: SB-RSS_feed-plus v1.0\n"
+"Project-Id-Version: SB-RSS_feed-plus v1.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-01-20 17:37:51+0000\n"
+"PO-Revision-Date: 2013-01-21 17:41:36+0000\n"
 "Last-Translator: Ladislav Soukup <ladislav.soukup@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,77 +19,67 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: SB-RSS_feed-plus.php:185
+#: SB-RSS_feed-plus.php:210
 #@ SB_RSS_feed_plus
 msgid "Source: "
 msgstr "Zdroj: "
 
-#: SB-RSS_feed-plus.php:75
-#@ SB_RSS_feed_plus
-msgid "SB RSS Feed +"
-msgstr "SB RSS Feed +"
-
-#: SB-RSS_feed-plus.php:76
-#@ SB_RSS_feed_plus
-msgid "Settings"
-msgstr "Nastavení"
-
-#: SB-RSS_feed-plus.php:82
+#: SB-RSS_feed-plus.php:116
 #@ SB_RSS_feed_plus
 msgid "SB RSS Feed plus - Settings"
 msgstr "SB RSS Feed plus - Nastavení"
 
-#: settings/settings-general.php:8
+#: settings/settings-general.php:6
 #@ SB_RSS_feed_plus
 msgid "Add Image RSS Feed tags"
 msgstr "Přidat tagy s obrázky do RSS zdroje"
 
-#: settings/settings-general.php:9
+#: settings/settings-general.php:7
 #@ SB_RSS_feed_plus
 msgid "\"enclosure\" and \"media:content\" tag in RSS feed are used to tell RSS parser about post thumbnail."
 msgstr "tagy \"enclosure\" a \"media:content\" v RSS zdroji slouží k předání informace o obrázku RSS čtečce."
 
-#: settings/settings-general.php:14
+#: settings/settings-general.php:12
 #@ SB_RSS_feed_plus
 msgid "Add \"enclosure\" tag to RSS feed"
 msgstr "Přidat tag \"enclosure\" do RSS zdroje"
 
-#: settings/settings-general.php:21
+#: settings/settings-general.php:19
 #@ SB_RSS_feed_plus
 msgid "Add \"media:content\" tag to RSS feed"
 msgstr "Přidat tag \"media:content\" do RSS zdroje"
 
-#: settings/settings-general.php:31
+#: settings/settings-general.php:29
 #@ SB_RSS_feed_plus
 msgid "Extend HTML content"
 msgstr "Rozšířit text položek"
 
-#: settings/settings-general.php:32
+#: settings/settings-general.php:30
 #@ SB_RSS_feed_plus
 msgid "This will extend the HTML code of \"description\" and \"content:encoded\" tags with 90% wide image before the text."
 msgstr "Přidat do tagů \"description\" a \"content:encoded\" obrázek (šířka 90%) před hlavní text."
 
-#: settings/settings-general.php:37
+#: settings/settings-general.php:35
 #@ SB_RSS_feed_plus
 msgid "Extend \"description\" (excerpt)"
 msgstr "Rozšířit tag \"description\" (excerpt)"
 
-#: settings/settings-general.php:44
+#: settings/settings-general.php:42
 #@ SB_RSS_feed_plus
 msgid "Extend \"content:encoded\" HTML"
 msgstr "Rozšířit tag \"content:encoded\""
 
-#: settings/settings-general.php:54
+#: settings/settings-general.php:52
 #@ SB_RSS_feed_plus
 msgid "RSS Feed signature"
 msgstr "\"Podpis\" pod RSS"
 
-#: settings/settings-general.php:55
+#: settings/settings-general.php:53
 #@ SB_RSS_feed_plus
 msgid "Add \"Source: XYZ\" text to end of the content of each feed item."
 msgstr "Přidat podpis (\"Zdroj: XYZ\") na konec každé položky v RSS zdroji."
 
-#: settings/settings-general.php:60
+#: settings/settings-general.php:58
 #@ SB_RSS_feed_plus
 msgid "Add signature"
 msgstr "Přidat \"podpis\""
@@ -98,4 +88,25 @@ msgstr "Přidat \"podpis\""
 #@ SB_RSS_feed_plus
 msgid "Save Changes"
 msgstr "Uložit změny"
+
+#: SB-RSS_feed-plus.php:94
+#@ SB_RSS_feed_plus
+msgid "<b>SB RSS Feed plus Warning</b>: Settings needs to be updated..."
+msgstr "<b>Varování - SB RSS Feed plus</b>: Nastavení potřebuje aktualizovat..."
+
+#: SB-RSS_feed-plus.php:94
+#@ SB_RSS_feed_plus
+msgid "Update settings"
+msgstr "Aktualizovat nastavení"
+
+#: SB-RSS_feed-plus.php:106
+#: SB-RSS_feed-plus.php:108
+#@ SB_RSS_feed_plus
+msgid "SB RSS feed +"
+msgstr "SB RSS feed +"
+
+#: SB-RSS_feed-plus.php:110
+#@ SB_RSS_feed_plus
+msgid "SB RSS feed plus"
+msgstr "SB RSS feed plus"
 

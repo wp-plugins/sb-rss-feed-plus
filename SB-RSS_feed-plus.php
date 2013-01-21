@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items.
-Version: 1.0.1
+Version: 1.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -30,6 +30,8 @@ class SB_RSS_feed_plus {
 	private $plugin_path;
     private $wpsf;
 	private $CFG;
+	public $cfg_version = '1.1';
+	private $update_warning = false;
 	 
 	/*--------------------------------------------*
 	 * Constructor
@@ -45,12 +47,27 @@ class SB_RSS_feed_plus {
 		load_plugin_textdomain( 'SB_RSS_feed_plus', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 		
 		/* admin options */
-		add_action( 'admin_menu', array(&$this, 'admin_menu'), 99 );
 		require_once( $this->plugin_path .'wp-settings-framework.php' );
         $this->wpsf = new WordPressSettingsFramework( $this->plugin_path .'settings/settings-general.php' );
 		
 		/* load CFG */
 		$this->CFG = wpsf_get_settings( $this->plugin_path .'settings/settings-general.php' );
+		
+		if ( $this->CFG['settingsgeneral_info_version'] !== $this->cfg_version ) {
+			// SET defaults, mark this version as current
+			if (!isset($this->CFG['settingsgeneral_tags_addTag_enclosure'])) $this->CFG['settingsgeneral_tags_addTag_enclosure'] = 1;
+			if (!isset($this->CFG['settingsgeneral_tags_addTag_mediaContent'])) $this->CFG['settingsgeneral_tags_addTag_mediaContent'] = 1;
+			if (!isset($this->CFG['settingsgeneral_description_extend_description'])) $this->CFG['settingsgeneral_description_extend_description'] = 1;
+			if (!isset($this->CFG['settingsgeneral_description_extend_content'])) $this->CFG['settingsgeneral_description_extend_content'] = 1;
+			if (!isset($this->CFG['settingsgeneral_signature_addSignature'])) $this->CFG['settingsgeneral_signature_addSignature'] = 0;
+			
+			$this->update_warning = true;
+			add_action( 'admin_head', array( $this, "addAdminAlert" ) );
+		}
+		add_action( 'wpsf_before_settings_fields', array( $this, 'update_current_version' ) );
+		
+		// add admin menu item
+		add_action( 'admin_menu', array(&$this, 'admin_menu') );
 		
 		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -70,13 +87,29 @@ class SB_RSS_feed_plus {
 		
 	} // end constructor
 	
-	function admin_menu()
+	public function addAdminAlert() { ?>
+		<script type="text/javascript">
+			jQuery().ready(function(){
+				jQuery('.wrap > h2').parent().prev().after('<div class="update-nag"><?php _e( '<b>SB RSS Feed plus Warning</b>: Settings needs to be updated...', 'SB_RSS_feed_plus' ); ?>&nbsp;&nbsp;<a href="options-general.php?page=sbrss_feed_plus" class="button"><?php _e( 'Update settings', 'SB_RSS_feed_plus' ); ?></a></div>');
+			});
+		</script>
+	<?php }
+	
+	public function update_current_version() {
+		echo '<input type="hidden" name="settingsgeneral_settings[settingsgeneral_info_version]" id="settingsgeneral_info_version" value="'.$this->cfg_version.'" />';
+	}
+	
+	public function admin_menu()
     {
-        $page_hook = add_menu_page( __( 'SB RSS Feed +', 'SB_RSS_feed_plus' ), __( 'SB RSS Feed +', 'SB_RSS_feed_plus' ), 'update_core', 'sbrss_feed_plus', array(&$this, 'settings_page') );
-        add_submenu_page( 'sbrss_feed_plus', __( 'Settings', 'SB_RSS_feed_plus' ), __( 'Settings', 'SB_RSS_feed_plus' ), 'update_core', 'sbrss_feed_plus', array(&$this, 'settings_page') );
+		if ( $this->update_warning === true ) {
+			$menu_label = __( 'SB RSS feed +', 'SB_RSS_feed_plus' ) . "<span class='update-plugins count-1' title=''><span class='update-count'>!</span></span>";
+		} else {
+			$menu_label = __( 'SB RSS feed +', 'SB_RSS_feed_plus' );
+		}
+		add_submenu_page( 'options-general.php', __( 'SB RSS feed plus', 'SB_RSS_feed_plus' ), $menu_label, 'update_core', 'sbrss_feed_plus', array(&$this, 'settings_page') );
     }
 	
-	function settings_page() { ?>
+	public function settings_page() { ?>
         <div class="wrap">
             <div id="icon-options-general" class="icon32"></div>
             <h2><?php _e( 'SB RSS Feed plus - Settings', 'SB_RSS_feed_plus' ); ?></h2>
