@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items.
-Version: 1.1
+Version: 1.1.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -30,7 +30,7 @@ class SB_RSS_feed_plus {
 	private $plugin_path;
     private $wpsf;
 	private $CFG;
-	public $cfg_version = '1.1';
+	public $cfg_version = '1.1.1';
 	private $update_warning = false;
 	 
 	/*--------------------------------------------*
@@ -48,18 +48,18 @@ class SB_RSS_feed_plus {
 		
 		/* admin options */
 		require_once( $this->plugin_path .'wp-settings-framework.php' );
-        $this->wpsf = new WordPressSettingsFramework( $this->plugin_path .'settings/settings-general.php' );
+        $this->wpsf = new WordPressSettingsFramework( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
 		
 		/* load CFG */
-		$this->CFG = wpsf_get_settings( $this->plugin_path .'settings/settings-general.php' );
+		$this->CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );  // print_r($this->CFG);
 		
-		if ( $this->CFG['settingsgeneral_info_version'] !== $this->cfg_version ) {
+		if ( $this->CFG['sbrssfeedcfg_info_version'] !== $this->cfg_version ) {
 			// SET defaults, mark this version as current
-			if (!isset($this->CFG['settingsgeneral_tags_addTag_enclosure'])) $this->CFG['settingsgeneral_tags_addTag_enclosure'] = 1;
-			if (!isset($this->CFG['settingsgeneral_tags_addTag_mediaContent'])) $this->CFG['settingsgeneral_tags_addTag_mediaContent'] = 1;
-			if (!isset($this->CFG['settingsgeneral_description_extend_description'])) $this->CFG['settingsgeneral_description_extend_description'] = 1;
-			if (!isset($this->CFG['settingsgeneral_description_extend_content'])) $this->CFG['settingsgeneral_description_extend_content'] = 1;
-			if (!isset($this->CFG['settingsgeneral_signature_addSignature'])) $this->CFG['settingsgeneral_signature_addSignature'] = 0;
+			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_enclosure'])) $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] = 1;
+			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] = 1;
+			if (!isset($this->CFG['sbrssfeedcfg_description_extend_description'])) $this->CFG['sbrssfeedcfg_description_extend_description'] = 1;
+			if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
+			if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
 			
 			$this->update_warning = true;
 			add_action( 'admin_head', array( $this, "addAdminAlert" ) );
@@ -79,10 +79,10 @@ class SB_RSS_feed_plus {
 		add_action( "rss2_item", array( $this, "feed_addMeta" ), 5, 1 );
 		
 		
-		if ( $this->CFG['settingsgeneral_description_extend_description'] == 1 )
+		if ( $this->CFG['sbrssfeedcfg_description_extend_description'] == 1 )
 			add_filter('the_excerpt_rss', array( $this, "feed_update_content") );
 		
-		if ( $this->CFG['settingsgeneral_description_extend_content'] == 1 )
+		if ( $this->CFG['sbrssfeedcfg_description_extend_content'] == 1 )
 			add_filter('the_content_feed', array ( $this, "feed_update_content") );
 		
 	} // end constructor
@@ -96,7 +96,7 @@ class SB_RSS_feed_plus {
 	<?php }
 	
 	public function update_current_version() {
-		echo '<input type="hidden" name="settingsgeneral_settings[settingsgeneral_info_version]" id="settingsgeneral_info_version" value="'.$this->cfg_version.'" />';
+		echo '<input type="hidden" name="sbrssfeedcfg_settings[sbrssfeedcfg_info_version]" id="sbrssfeedcfg_info_version" value="'.$this->cfg_version.'" />';
 	}
 	
 	public function admin_menu()
@@ -180,11 +180,11 @@ class SB_RSS_feed_plus {
 			$image = $this->feed_getImage();
 			if ($image !== false) {
 				
-				if ( $this->CFG['settingsgeneral_tags_addTag_enclosure'] == 1 ) {
+				if ( $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] == 1 ) {
 					echo '<enclosure url="' . $image[0] . '" length="' . $filesize . '" type="image/jpg" />' . "\n";
 				}
 				
-				if ( $this->CFG['settingsgeneral_tags_addTag_mediaContent'] == 1 ) {
+				if ( $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] == 1 ) {
 					echo '<media:content url="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" medium="image" type="image/jpeg">' . "\n";
 					echo '<media:copyright>' . get_bloginfo( 'name' ) . '</media:copyright>' . "\n";
 					echo '</media:content>' . "\n";
@@ -204,7 +204,7 @@ class SB_RSS_feed_plus {
 			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" /></div>';
 			$content_new .= '<div>' . $content . '</div>';
 			
-			if ( $this->CFG['settingsgeneral_signature_addSignature'] == 1 ) {
+			if ( $this->CFG['sbrssfeedcfg_signature_addSignature'] == 1 ) {
 				$content_new .= '<div>&nbsp;</div><div><em>';
 				$content_new .=  __( 'Source: ', 'SB_RSS_feed_plus' );
 				$content_new .= '<a href="' . get_permalink($post->ID) . '" target="_blank">' . get_bloginfo( 'name' ) . '</a>';
