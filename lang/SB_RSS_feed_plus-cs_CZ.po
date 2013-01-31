@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SB-RSS_feed-plus v1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-01-31 08:49:53+0000\n"
+"Last-Translator: Ladislav Soukup <ladislav.soukup@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n+9)%10>3 ? 2 : 1;\n"
+"X-Poedit-Language: Czech\n"
+"X-Poedit-Country: CZECH REPUBLIC\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: SB-RSS_feed-plus.php:225
+#@ SB_RSS_feed_plus
+msgid "Source: "
+msgstr "Zdroj: "
+
+#: SB-RSS_feed-plus.php:131
+#@ SB_RSS_feed_plus
+msgid "SB RSS Feed plus - Settings"
+msgstr "SB RSS Feed plus - Nastavení"
+
+#: settings/sbrssfeed-cfg.php:6
+#@ SB_RSS_feed_plus
+msgid "Add Image RSS Feed tags"
+msgstr "Přidat tagy s obrázky do RSS zdroje"
+
+#: settings/sbrssfeed-cfg.php:7
+#@ SB_RSS_feed_plus
+msgid "\"enclosure\" and \"media:content\" tag in RSS feed are used to tell RSS parser about post thumbnail."
+msgstr "tagy \"enclosure\" a \"media:content\" v RSS zdroji slouží k předání informace o obrázku RSS čtečce."
+
+#: settings/sbrssfeed-cfg.php:12
+#@ SB_RSS_feed_plus
+msgid "Add \"enclosure\" tag to RSS feed"
+msgstr "Přidat tag \"enclosure\" do RSS zdroje"
+
+#: settings/sbrssfeed-cfg.php:19
+#@ SB_RSS_feed_plus
+msgid "Add \"media:content\" tag to RSS feed"
+msgstr "Přidat tag \"media:content\" do RSS zdroje"
+
+#: settings/sbrssfeed-cfg.php:29
+#@ SB_RSS_feed_plus
+msgid "Extend HTML content"
+msgstr "Rozšířit text položek"
+
+#: settings/sbrssfeed-cfg.php:30
+#@ SB_RSS_feed_plus
+msgid "This will extend the HTML code of \"description\" and \"content:encoded\" tags with 90% wide image before the text."
+msgstr "Přidat do tagů \"description\" a \"content:encoded\" obrázek (šířka 90%) před hlavní text."
+
+#: settings/sbrssfeed-cfg.php:35
+#@ SB_RSS_feed_plus
+msgid "Extend \"description\" (excerpt)"
+msgstr "Rozšířit tag \"description\" (excerpt)"
+
+#: settings/sbrssfeed-cfg.php:42
+#@ SB_RSS_feed_plus
+msgid "Extend \"content:encoded\" HTML"
+msgstr "Rozšířit tag \"content:encoded\""
+
+#: settings/sbrssfeed-cfg.php:52
+#@ SB_RSS_feed_plus
+msgid "RSS Feed signature"
+msgstr "\"Podpis\" pod RSS"
+
+#: settings/sbrssfeed-cfg.php:53
+#@ SB_RSS_feed_plus
+msgid "Add \"Source: XYZ\" text to end of the content of each feed item."
+msgstr "Přidat podpis (\"Zdroj: XYZ\") na konec každé položky v RSS zdroji."
+
+#: settings/sbrssfeed-cfg.php:58
+#@ SB_RSS_feed_plus
+msgid "Add signature"
+msgstr "Přidat \"podpis\""
+
+#: wp-settings-framework.php:282
+#@ SB_RSS_feed_plus
+msgid "Save Changes"
+msgstr "Uložit změny"
+
+#: SB-RSS_feed-plus.php:97
+#@ SB_RSS_feed_plus
+msgid "<b>SB RSS Feed plus Warning</b>: Settings needs to be updated..."
+msgstr "<b>Varování - SB RSS Feed plus</b>: Nastavení potřebuje aktualizovat..."
+
+#: SB-RSS_feed-plus.php:99
+#@ SB_RSS_feed_plus
+msgid "Update settings"
+msgstr "Aktualizovat nastavení"
+
+#: SB-RSS_feed-plus.php:121
+#: SB-RSS_feed-plus.php:123
+#@ SB_RSS_feed_plus
+msgid "SB RSS feed +"
+msgstr "SB RSS feed +"
+
+#: SB-RSS_feed-plus.php:125
+#@ SB_RSS_feed_plus
+msgid "SB RSS feed plus"
+msgstr "SB RSS feed plus"
+
+#: SB-RSS_feed-plus.php:111
+#@ SB_RSS_feed_plus
+msgid "If You like this plugin, please donate and support development. Thank You :)"
+msgstr "Pokud se vám plugin líbí, prosím podpořte vývoj malou \"dotací\". Děkuji :)"
+
+#: SB-RSS_feed-plus.php:113
+#@ SB_RSS_feed_plus
+msgid "More free plugins..."
+msgstr "Další pluginy zdarma..."
+
+#: SB-RSS_feed-plus.php:114
+#@ SB_RSS_feed_plus
+msgid "More projects - GIT"
+msgstr "Další projekty - GIT"
+
+#: SB-RSS_feed-plus.php:242
+#@ SB_RSS_feed_plus
+msgid "advertisement: "
+msgstr "reklama:"
+
+#: settings/sbrssfeed-cfg.php:68
+#@ SB_RSS_feed_plus
+msgid "RSS Feed advertisement"
+msgstr "Reklama v RSS zdroji"
+
+#: settings/sbrssfeed-cfg.php:69
+#@ SB_RSS_feed_plus
+msgid "Inject \"ad\" to RSS feed items (image with link). Ad will be inserted only to full text \"content:encoded\" tag."
+msgstr "Vloží \"reklamu\" (obrázek s proklikem) do každé položky RSS zdroje. Reklama se vkládá pouze do tagu \"content:encoded\"."
+
+#: settings/sbrssfeed-cfg.php:74
+#@ SB_RSS_feed_plus
+msgid "Inject ad to feed posts"
+msgstr "Vložit reklamu do položek RSS zdroje"
+
+#: settings/sbrssfeed-cfg.php:81
+#@ SB_RSS_feed_plus
+msgid "Ad image"
+msgstr "Obrázek"
+
+#: settings/sbrssfeed-cfg.php:88
+#@ SB_RSS_feed_plus
+msgid "Ad title"
+msgstr "Titulek"
+
+#: settings/sbrssfeed-cfg.php:94
+#@ SB_RSS_feed_plus
+msgid "Ad target link"
+msgstr "Odkaz"
+
+#: settings/sbrssfeed-cfg.php:95
+#@ SB_RSS_feed_plus
+msgid "Recommendation: use bit.ly or similar service to track clicks..."
+msgstr "Doporučení: použijte bit.ly nebo podobnou službu pro sledování prokliků..."
+
+#: settings/sbrssfeed-cfg.php:100
+#@ SB_RSS_feed_plus
+msgid "Inject ad after nth paragraph"
+msgstr "Vložit reklamu za n-tý odstavec"
+
+#: settings/sbrssfeed-cfg.php:82
+#@ SB_RSS_feed_plus
+msgid "image will be stretched up to 700px of width"
+msgstr "obrázek může byt natažen až na šířku 700 pixelů"
+
+#: settings/sbrssfeed-cfg.php:105
+#@ SB_RSS_feed_plus
+msgid "1st paragraph"
+msgstr "1. odstavec"
+
+#: settings/sbrssfeed-cfg.php:106
+#@ SB_RSS_feed_plus
+msgid "2nd paragraph"
+msgstr "2. odstavec"
+
+#: settings/sbrssfeed-cfg.php:107
+#@ SB_RSS_feed_plus
+msgid "3rd paragraph"
+msgstr "3. odstavec"
+
+#: settings/sbrssfeed-cfg.php:108
+#@ SB_RSS_feed_plus
+msgid "4th paragraph"
+msgstr "4. odstavec"
+
+#: settings/sbrssfeed-cfg.php:109
+#@ SB_RSS_feed_plus
+msgid "5th paragraph"
+msgstr "5. odstavec"
+
+#: settings/sbrssfeed-cfg.php:110
+#@ SB_RSS_feed_plus
+msgid "6th paragraph"
+msgstr "6. odstavec"
+
+#: settings/sbrssfeed-cfg.php:111
+#@ SB_RSS_feed_plus
+msgid "7th paragraph"
+msgstr "7. odstavec"
+
