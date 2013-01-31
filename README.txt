@@ -1,7 +1,7 @@
 === SB RSS feed plus ===
 Contributors: ladislav.soukup@gmail.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKTGSXPFWKG&lc=CZ&item_name=Ladislav%20Soukup&item_number=SB%20RSS%20feed%20plus%20%5bWP%2dPlugin%5d&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
-Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, content:encoded, media:content, media, content
+Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, content:encoded, media:content, media, content, ad, ads, advertisement
 Requires at least: 3.3.1
 Tested up to: 3.5
 Stable tag: 1.2
@@ -15,7 +15,7 @@ You can improve the default WordPress RSS feed to include:
 - This plugin will add post thumbnail to RSS feed as "media:content" and "enclosure" tags.
 - Image is also added to HTML part of "description" and "content:encoded" tags.
 - You can also add server signature to end of feed content in form "Source: XYZ".
-- Inject ad (image with link) after nth paragraph of each post.
+- Inject advertisement (image with link) after nth paragraph of each post.
 
 = Post thumbnail =
 Add post thumnail to each post's excerpt and full text (if enabled in WordPress configuration).
@@ -33,7 +33,6 @@ There is no click monitoring, so you should use something like bit.ly to track c
 All text can be translated using standart language files, text domain is: "SB_RSS_feed_plus".
 
 Included translations:
-
 - English (default)
 - Czech
 
