@@ -10,11 +10,12 @@ This plugin will add post thumbnail to RSS feed items.
 
 == Description ==
 
-You can improve the default WordPress RSS feed to include
-*   This plugin will add post thumbnail to RSS feed as "media:content" and "enclosure" tags.
-*   Image is also added to HTML part of "description" and "content:encoded" tags.
-*   You can also add server signature to end of feed content in form "Source: XYZ".
-*   Inject ad (image with link) after nth paragraph of each post.
+You can improve the default WordPress RSS feed to include:
+
+- This plugin will add post thumbnail to RSS feed as "media:content" and "enclosure" tags.
+- Image is also added to HTML part of "description" and "content:encoded" tags.
+- You can also add server signature to end of feed content in form "Source: XYZ".
+- Inject ad (image with link) after nth paragraph of each post.
 
 = Post thumbnail =
 Add post thumnail to each post's excerpt and full text (if enabled in WordPress configuration).
@@ -32,8 +33,9 @@ There is no click monitoring, so you should use something like bit.ly to track c
 All text can be translated using standart language files, text domain is: "SB_RSS_feed_plus".
 
 Included translations:
-*   English (default)
-*   Czech
+
+- English (default)
+- Czech
 
 == Installation ==
 
