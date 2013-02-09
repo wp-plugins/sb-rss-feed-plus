@@ -2,8 +2,8 @@
 /*
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
-Description: This plugin will add post thumbnail to RSS feed items.
-Version: 1.2
+Description: This plugin will add post thumbnail to RSS feed items. Add server signatur or simple adds to your RSS feed. You can also create special fulltext RSS feed even when WordPress is set to "excerpt only" feed (via special url).
+Version: 1.3
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -60,6 +60,7 @@ class SB_RSS_feed_plus {
 			if (!isset($this->CFG['sbrssfeedcfg_description_extend_description'])) $this->CFG['sbrssfeedcfg_description_extend_description'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
+			if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_override'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] = 0;
 			
 			$this->update_warning = true;
 			add_action( 'admin_notices', array( $this, "addAdminAlert" ) );
@@ -87,6 +88,9 @@ class SB_RSS_feed_plus {
 		
 		if ( $this->CFG['sbrssfeedcfg_inrssAd_inrssAd_enabled'] == 1 )
 			add_filter('the_content_feed', array ( $this, "feed_update_content_injectAd") );
+		
+		if ( $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] == 1 )
+			$this->fulltext_override();
 		
 	} // end constructor
 	
@@ -268,6 +272,15 @@ class SB_RSS_feed_plus {
 		}
 		
 		return $content_new;
+	}
+	
+	public function fulltext_override() {
+		$secret = $this->CFG['sbrssfeedcfg_fulltext_fulltext_override_secrete'];
+		$passed_secret = $_GET['fsk'];
+		
+		if ( $secret == $passed_secret ) {
+			add_filter('pre_option_rss_use_excerpt', function() { return 0; } );
+		}
 	}
 	
 } // end class

@@ -1,10 +1,10 @@
 === SB RSS feed plus ===
 Contributors: ladislav.soukup@gmail.com
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKTGSXPFWKG&lc=CZ&item_name=Ladislav%20Soukup&item_number=SB%20RSS%20feed%20plus%20%5bWP%2dPlugin%5d&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
-Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, content:encoded, media:content, media, content, ad, ads, advertisement
+Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, google currents, content:encoded, media:content, media, content, ad, ads, advertisement, override
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 1.2
+Stable tag: 1.3
 
 This plugin will add post thumbnail to RSS feed items.
 
@@ -21,6 +21,10 @@ You can improve the default WordPress RSS feed to include:
 Add post thumnail to each post's excerpt and full text (if enabled in WordPress configuration).
 Image will be added just before text of each post in RSS feed.
 Post thumbnail is also added as media:content and enclosure tag to RSS feed.
+
+= Full-text RSS Feed when accessed via special URL =
+You can access RSS Feed with full content posts even when WordPress is set to RSS "Excerpt only" mode. Just setup a "secret key" and enable the override...
+You can then request feed url with special query param ?fsk= to override "excerpt only" mode to "fulltext" mode. This is great for services like Google Currents.
 
 = Server signature =
 You can add server signature just after the full text content of post to each RSS post.
@@ -49,6 +53,9 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+
+= 1.3 =
+- WordPress excerpt_only setting can be "temporary" overridden via special url (query param)
 
 = 1.2 =
 

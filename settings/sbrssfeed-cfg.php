@@ -1,5 +1,6 @@
 <?php
 global $wpsf_settings;
+$CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
 
 $wpsf_settings[] = array(
     'section_id' => 'tags',
@@ -43,6 +44,40 @@ $wpsf_settings[] = array(
             'desc' => '',
             'type' => 'checkbox',
             'std' => 1
+        )
+	)
+);
+
+$rss_use_excerpt = get_option('rss_use_excerpt');
+$rss_fulltext_link = site_url() . '/feed/?fsk=';
+$CFG['sbrssfeedcfg_fulltext_fulltext_override_secrete'] ? $rss_fulltext_link .= $CFG['sbrssfeedcfg_fulltext_fulltext_override_secrete'] : $rss_fulltext_link .= '-NOT-SET-';
+
+$wpsf_settings[] = array(
+    'section_id' => 'fulltext',
+    'section_title' => __( 'RSS Feed fulltext override', 'SB_RSS_feed_plus' ),
+    'section_description' => __( 'Override "excerpt only" RSS feed when requested with "secret" key.', 'SB_RSS_feed_plus' ),
+    'section_order' => 25,
+    'fields' => array(
+		array(
+            'id' => 'fulltext_wp_option',
+            'title' => __( 'WordPress RSS Feed mode', 'SB_RSS_feed_plus' ),
+            'desc' => '',
+			'type' => 'custom',
+			'std' => $rss_use_excerpt ? __( 'Excerpt only - there is only excerpt in the standard RSS Feed...<br />However, requesting feed url with special "secret key" will display full content of each post (great for services like Google Currents).', 'SB_RSS_feed_plus' ) : __( 'Fulltext - your feed already contains whole post content.', 'SB_RSS_feed_plus' )
+        ),
+		array(
+            'id' => 'fulltext_override',
+            'title' => __( 'Enable fulltext override', 'SB_RSS_feed_plus' ),
+            'desc' => $rss_use_excerpt ? '<em>' . __( 'When enabled, you can request RSS Feed with full post content with special URL (added query string <strong>?fsk=</strong>)', 'SB_RSS_feed_plus' ) . '</em>' : '<em>' . __( 'You don\'t need to override WordPress settings - your feed already contains full post content.', SB_RSS_feed_plus ) . '</em>' ,
+            'type' => 'checkbox',
+            'std' => 0
+        ),
+		array(
+            'id' => 'fulltext_override_secrete',
+            'title' => __( 'Override "secret" key (?fsk= param)', 'SB_RSS_feed_plus' ),
+            'desc' => __( 'Fulltext RSS Feed:', 'SB_RSS_feed_plus' ) . ' <a href="'.$rss_fulltext_link.'" target="_blank">' . $rss_fulltext_link . '</a>',
+            'type' => 'text',
+			'std' => uniqid()
         )
 	)
 );
