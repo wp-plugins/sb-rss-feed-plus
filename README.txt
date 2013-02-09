@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, google currents, content:encoded, media:content, media, content, ad, ads, advertisement, override
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 1.3
+Stable tag: 1.3.1
 
 This plugin will add post thumbnail to RSS feed items.
 
@@ -54,7 +54,7 @@ No more settings are needed.
 
 == Changelog ==
 
-= 1.3 =
+= 1.3.1 =
 - WordPress excerpt_only setting can be "temporary" overridden via special url (query param)
 
 = 1.2 =
