@@ -6,7 +6,7 @@ Requires at least: 3.3.1
 Tested up to: 3.5
 Stable tag: 1.3.1
 
-This plugin will add post thumbnail to RSS feed items.
+This plugin will add post thumbnail to RSS feed items. Add server signatur or simple adds to your RSS feed. You can also create special fulltext RSS feed even when WordPress is set to "excerpt only" feed (via special url).
 
 == Description ==
 
