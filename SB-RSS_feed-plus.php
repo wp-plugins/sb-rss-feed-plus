@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.3.1
+Version: 1.3.2
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -76,7 +76,7 @@ class SB_RSS_feed_plus {
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 		register_uninstall_hook( __FILE__, array( $this, 'uninstall' ) );
 		
-		add_action( "rss2_ns", array( $this, "feed_addNameSpace") );
+		// add_action( "rss2_ns", array( $this, "feed_addNameSpace") );
 		add_action( "rss_item", array( $this, "feed_addMeta" ), 5, 1 );
 		add_action( "rss2_item", array( $this, "feed_addMeta" ), 5, 1 );
 		
@@ -183,6 +183,7 @@ class SB_RSS_feed_plus {
 			$thumbnail_id = get_post_thumbnail_id( $post->ID );
 			if(!empty($thumbnail_id)) {
 				$image = wp_get_attachment_image_src( $thumbnail_id, $size );
+				$image[4] = @filesize( get_attached_file( $thumbnail_id ) ); // add file size
 			}
 		}
 		
@@ -201,11 +202,11 @@ class SB_RSS_feed_plus {
 			if ($image !== false) {
 				
 				if ( $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] == 1 ) {
-					echo '<enclosure url="' . $image[0] . '" length="' . $filesize . '" type="image/jpg" />' . "\n";
+					echo '<enclosure url="' . $image[0] . '" length="' . $image[4] . '" type="image/jpg" />' . "\n";
 				}
 				
 				if ( $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] == 1 ) {
-					echo '<media:content url="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" medium="image" type="image/jpeg">' . "\n";
+					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" medium="image" type="image/jpeg">' . "\n";
 					echo '<media:copyright>' . get_bloginfo( 'name' ) . '</media:copyright>' . "\n";
 					echo '</media:content>' . "\n";
 				}
