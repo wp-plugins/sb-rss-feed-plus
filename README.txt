@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, google currents, content:encoded, media:content, media, content, ad, ads, advertisement, override
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 
 This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
 
@@ -37,6 +37,7 @@ There is no click monitoring, so you should use something like bit.ly to track c
 All text can be translated using standart language files, text domain is: "SB_RSS_feed_plus".
 
 Included translations:
+
 - English (default)
 - Czech
 
@@ -53,6 +54,9 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+
+= 1.3.3 =
+- fixed problem with older PHP version (5.2)
 
 = 1.3.2 =
 - fixed possible "xmlns:media" collision
@@ -97,4 +101,3 @@ No more settings are needed.
 = 0.1 =
 
 first beta version
-

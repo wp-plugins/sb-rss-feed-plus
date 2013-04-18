@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.3.2
+Version: 1.3.3
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -114,7 +114,8 @@ class SB_RSS_feed_plus {
 		echo '<div style="background: #ebebeb; border: 1px solid #cacaca; padding: 10px;">';
 			echo '<div style="">' . __( 'If You like this plugin, please donate and support development. Thank You :)', 'SB_RSS_feed_plus' ) . '</div>';
 			echo '<br/><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
-			echo '<br/><a href="http://profiles.wordpress.org/ladislavsoukupgmailcom" targe="_blank">' . __( 'More free plugins...', 'SB_RSS_feed_plus' ) . '</a>';
+			echo '<a href="http://flattr.com/thing/1240138/SB-RSS-feed-plus" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>';
+			echo '<br/><br/><a href="http://profiles.wordpress.org/ladislavsoukupgmailcom" targe="_blank">' . __( 'More free plugins...', 'SB_RSS_feed_plus' ) . '</a>';
 			echo '&nbsp;|&nbsp;<a href="http://git.ladasoukup.cz/" targe="_blank">' . __( 'More projects - GIT', 'SB_RSS_feed_plus' ) . '</a>';
 		echo '</div>';
 	}
@@ -280,10 +281,12 @@ class SB_RSS_feed_plus {
 		$passed_secret = $_GET['fsk'];
 		
 		if ( $secret == $passed_secret ) {
-			add_filter('pre_option_rss_use_excerpt', function() { return 0; } );
+			add_filter('pre_option_rss_use_excerpt', array( $this, 'fulltext_override_filter' ) );
 		}
 	}
-	
+	public function fulltext_override_filter() {
+		return 0;
+	}
 } // end class
 
 $SB_RSS_feed_plus = new SB_RSS_feed_plus();
