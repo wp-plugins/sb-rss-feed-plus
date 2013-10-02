@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.3.3
+Version: 1.3.4
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -220,19 +220,21 @@ class SB_RSS_feed_plus {
 		global $post;
 		
 		$content_new = '';
-		$image = $this->feed_getImage();
 		
 		if(has_post_thumbnail($post->ID)) {
+			$image = $this->feed_getImage();
 			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" /></div>';
-			$content_new .= '<div>' . $content . '</div>';
-			
-			if ( $this->CFG['sbrssfeedcfg_signature_addSignature'] == 1 ) {
-				$content_new .= '<div>&nbsp;</div><div><em>';
-				$content_new .=  __( 'Source: ', 'SB_RSS_feed_plus' );
-				$content_new .= '<a href="' . get_permalink($post->ID) . '" target="_blank">' . get_bloginfo( 'name' ) . '</a>';
-				$content_new .= '</em></div>';
-			}
 		}
+		
+		$content_new .= '<div>' . $content . '</div>';
+		
+		if ( $this->CFG['sbrssfeedcfg_signature_addSignature'] == 1 ) {
+			$content_new .= '<div>&nbsp;</div><div><em>';
+			$content_new .=  __( 'Source: ', 'SB_RSS_feed_plus' );
+			$content_new .= '<a href="' . get_permalink($post->ID) . '" target="_blank">' . get_bloginfo( 'name' ) . '</a>';
+			$content_new .= '</em></div>';
+		}
+		
 		return $content_new;
 	}
 	
