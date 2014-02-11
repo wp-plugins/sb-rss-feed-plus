@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.3.5
+Version: 1.4.1
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -57,6 +57,7 @@ class SB_RSS_feed_plus {
 			// SET defaults, mark this version as current
 			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_enclosure'])) $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] = 1;
+			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_description_extend_description'])) $this->CFG['sbrssfeedcfg_description_extend_description'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
@@ -114,8 +115,10 @@ class SB_RSS_feed_plus {
 		echo '<div style="background: #ebebeb; border: 1px solid #cacaca; padding: 10px;">';
 			echo '<div style="">' . __( 'If You like this plugin, please donate and support development. Thank You :)', 'SB_RSS_feed_plus' ) . '</div>';
 			echo '<br/><form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
-			echo '<a href="http://flattr.com/thing/1240138/SB-RSS-feed-plus" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>';
-			echo '<br/><br/><a href="http://profiles.wordpress.org/ladislavsoukupgmailcom" targe="_blank">' . __( 'More free plugins...', 'SB_RSS_feed_plus' ) . '</a>';
+			echo '<br/>';
+			echo '<div style=""><a href="https://bitbucket.org/ladasoukup/sb-rss-feed-plus/issues" target="_blank">' . __( 'Support and issues tracking.', 'SB_RSS_feed_plus' ) . '</a></div>';
+			echo '<br/><br/>';
+			echo '<a href="http://profiles.wordpress.org/ladislavsoukupgmailcom" targe="_blank">' . __( 'More free plugins...', 'SB_RSS_feed_plus' ) . '</a>';
 			echo '&nbsp;|&nbsp;<a href="http://git.ladasoukup.cz/" targe="_blank">' . __( 'More projects - GIT', 'SB_RSS_feed_plus' ) . '</a>';
 		echo '</div>';
 	}
@@ -133,11 +136,22 @@ class SB_RSS_feed_plus {
 	public function settings_page() { ?>
         <div class="wrap">
             <div id="icon-options-general" class="icon32"></div>
-            <h2><?php _e( 'SB RSS Feed plus - Settings', 'SB_RSS_feed_plus' ); ?></h2>
+			
+			<h2><?php _e( 'SB RSS Feed plus - Settings', 'SB_RSS_feed_plus' ); ?></h2>
             <?php 
             // Output your settings form
             $this->wpsf->settings(); 
             ?>
+			
+			
+			<hr/>
+			<h2><?php _e( 'Debug - hooks & filters', 'SB_RSS_feed_plus' ); ?></h2>
+			<?php $this->list_hooks( 'rss_item' ); ?>
+			<?php $this->list_hooks( 'rss2_item' ); ?>
+			<?php $this->list_hooks( 'pre_option_rss_use_excerpt' ); ?>
+			<?php $this->list_hooks( 'the_excerpt_rss' ); ?>
+			<?php $this->list_hooks( 'the_content_feed' ); ?>
+			<hr/>
         </div>
         
 	<?php }
@@ -175,16 +189,19 @@ class SB_RSS_feed_plus {
 	 * Core Functions
 	 *---------------------------------------------*/
 	
-	public function feed_getImage() {
+	public function feed_getImage( $size ) {
 		global $post;
 		$image = false;
-		$size = null;
+		if ( empty( $size ) ) $size = 'full';
 		
 		if( function_exists ('has_post_thumbnail') && has_post_thumbnail($post->ID)) {
 			$thumbnail_id = get_post_thumbnail_id( $post->ID );
 			if(!empty($thumbnail_id)) {
 				$image = wp_get_attachment_image_src( $thumbnail_id, $size );
-				$image[4] = @filesize( get_attached_file( $thumbnail_id ) ); // add file size
+				$image[4] = 0;
+				if ( $size == 'full' ) {
+					$image[4] = @filesize( get_attached_file( $thumbnail_id ) ); // add file size
+				}
 			}
 		}
 		
@@ -199,18 +216,24 @@ class SB_RSS_feed_plus {
 		global $post;
 		
 		if(!$for_comments) {
-			$image = $this->feed_getImage();
+			$image_enclosure = $this->feed_getImage( 'full' );
+			$image_mediaContent = $this->feed_getImage( $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent_size'] );
+			$image_mediaThumbnail = $this->feed_getImage( $this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail_size'] );
+			
 			if ($image !== false) {
 				
 				if ( $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] == 1 ) {
-					echo '<enclosure url="' . $image[0] . '" length="' . $image[4] . '" type="image/jpg" />' . "\n";
+					echo '<enclosure url="' . $image_enclosure[0] . '" length="' . $image_enclosure[4] . '" type="image/jpg" />' . "\n";
 				}
 				
 				if ( $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] == 1 ) {
-					echo '<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="'. $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '"/>' . "\n";
-					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" medium="image" type="image/jpeg">' . "\n";
-					echo '<media:copyright>' . get_bloginfo( 'name' ) . '</media:copyright>' . "\n";
+					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image_mediaContent[0] . '" width="' . $image_mediaContent[1] . '" height="' . $image_mediaContent[2] . '" medium="image" type="image/jpeg">' . "\n";
+					echo '	<media:copyright>' . get_bloginfo( 'name' ) . '</media:copyright>' . "\n";
 					echo '</media:content>' . "\n";
+				}
+				
+				if ( $this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'] == 1 ) {
+					echo '<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="'. $image_mediaThumbnail[0] . '" width="' . $image_mediaThumbnail[1] . '" height="' . $image_mediaThumbnail[2] . '" />' . "\n";
 				}
 				
 			}
@@ -223,7 +246,7 @@ class SB_RSS_feed_plus {
 		$content_new = '';
 		
 		if(has_post_thumbnail($post->ID)) {
-			$image = $this->feed_getImage();
+			$image = $this->feed_getImage( $this->CFG['sbrssfeedcfg_description_extend_content_size'] );
 			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" /></div>';
 		}
 		
@@ -290,6 +313,72 @@ class SB_RSS_feed_plus {
 	public function fulltext_override_filter() {
 		return 0;
 	}
+	
+	/*--------------------------------------------*
+	 * DEBUG - List Hooks
+	 * Code by Andrey Savchenko, http://www.rarst.net/script/debug-wordpress-hooks/
+	*---------------------------------------------*/
+	function list_hooks( $filter = false ){
+		global $wp_filter;
+		
+		$hooks = $wp_filter;
+		ksort( $hooks );
+
+		foreach( $hooks as $tag => $hook )
+			if ( false === $filter || false !== strpos( $tag, $filter ) )
+				$this->dump_hook($tag, $hook);
+	}
+
+	function list_live_hooks( $hook = false ) {
+		if ( false === $hook )
+			$hook = 'all';
+
+		add_action( $hook, array( $this, 'list_hook_details' ), -1 );
+	}
+
+	function list_hook_details( $input = NULL ) {
+		global $wp_filter;
+		
+		$tag = current_filter();
+		if( isset( $wp_filter[$tag] ) )
+			$this->dump_hook( $tag, $wp_filter[$tag] );
+
+		return $input;
+	}
+
+	function dump_hook( $tag, $hook ) {
+		ksort($hook);
+
+		echo "<pre>&gt;&gt;&gt;&gt;&gt;\t<strong>$tag</strong><br />";
+		
+		foreach( $hook as $priority => $functions ) {
+
+		echo $priority;
+
+		foreach( $functions as $function )
+			if( $function['function'] != 'list_hook_details' ) {
+			
+			echo "\t";
+
+			if( is_string( $function['function'] ) )
+				echo $function['function'];
+
+			elseif( is_string( $function['function'][0] ) )
+				 echo $function['function'][0] . ' -> ' . $function['function'][1];
+
+			elseif( is_object( $function['function'][0] ) )
+				echo "(object) " . get_class( $function['function'][0] ) . ' -> ' . $function['function'][1];
+
+			else
+				print_r($function);
+
+			echo ' (' . $function['accepted_args'] . ') <br />';
+			}
+		}
+
+		echo '</pre>';
+	}
+	
 } // end class
 
 $SB_RSS_feed_plus = new SB_RSS_feed_plus();

@@ -2,25 +2,55 @@
 global $wpsf_settings;
 $CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
 
+$thumbs = array(
+	'full' => __( '= Full size =', 'SB_RSS_feed_plus' ),
+	'thumbnail' => __( 'Thumbnail', 'SB_RSS_feed_plus' ),
+	'medium' => __( 'Medium size', 'SB_RSS_feed_plus' ),
+	'large ' => __( 'Large size', 'SB_RSS_feed_plus' )
+);
+//$thumbs_raw = get_intermediate_image_sizes();
+//foreach( $thumbs_raw as $th ) { $thumbs[$th] = __( $th, 'SB_RSS_feed_plus' ); }
+
 $wpsf_settings[] = array(
     'section_id' => 'tags',
     'section_title' => __( 'Add Image RSS Feed tags', 'SB_RSS_feed_plus' ),
-    'section_description' => __( '"enclosure" and "media:content" tag in RSS feed are used to tell RSS parser about post thumbnail.', 'SB_RSS_feed_plus' ),
+    'section_description' => __( '"enclosure" and "media:content" / "media:thumbnail" tags in RSS feed are used to tell RSS parser about post thumbnail.', 'SB_RSS_feed_plus' ),
     'section_order' => 10,
     'fields' => array(
 		array(
             'id' => 'addTag_enclosure',
-            'title' => __( 'Add "enclosure" tag to RSS feed', 'SB_RSS_feed_plus' ),
+            'title' => __( 'Add "enclosure" tag', 'SB_RSS_feed_plus' ),
             'desc' => '',
             'type' => 'checkbox',
             'std' => 1
         ),
 		array(
             'id' => 'addTag_mediaContent',
-            'title' => __( 'Add "media:content" tag to RSS feed', 'SB_RSS_feed_plus' ),
+            'title' => __( 'Add "media:content" tag', 'SB_RSS_feed_plus' ),
             'desc' => '',
             'type' => 'checkbox',
             'std' => 1
+        ),
+		array(
+            'id' => 'addTag_mediaContent_size',
+            'title' => __( ' - image size', 'SB_RSS_feed_plus' ),
+            'type' => 'select',
+			'type' => 'select',
+			'choices' => $thumbs
+        ),
+		array(
+            'id' => 'addTag_mediaThumbnail',
+            'title' => __( 'Add "media:thumbnail" tag', 'SB_RSS_feed_plus' ),
+            'desc' => '',
+            'type' => 'checkbox',
+            'std' => 1
+        ),
+		array(
+            'id' => 'addTag_mediaThumbnail_size',
+            'title' => __( ' - image size', 'SB_RSS_feed_plus' ),
+            'type' => 'select',
+			'type' => 'select',
+			'choices' => $thumbs
         )
 	)
 );
@@ -44,6 +74,13 @@ $wpsf_settings[] = array(
             'desc' => '',
             'type' => 'checkbox',
             'std' => 1
+        ),
+		array(
+            'id' => 'extend_content_size',
+            'title' => __( ' - image size', 'SB_RSS_feed_plus' ),
+            'type' => 'select',
+			'type' => 'select',
+			'choices' => $thumbs
         )
 	)
 );
