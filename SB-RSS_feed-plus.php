@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.1
+Version: 1.4.2
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -143,7 +143,6 @@ class SB_RSS_feed_plus {
             $this->wpsf->settings(); 
             ?>
 			
-			
 			<hr/>
 			<h2><?php _e( 'Debug - hooks & filters', 'SB_RSS_feed_plus' ); ?></h2>
 			<?php $this->list_hooks( 'rss_item' ); ?>
@@ -151,6 +150,15 @@ class SB_RSS_feed_plus {
 			<?php $this->list_hooks( 'pre_option_rss_use_excerpt' ); ?>
 			<?php $this->list_hooks( 'the_excerpt_rss' ); ?>
 			<?php $this->list_hooks( 'the_content_feed' ); ?>
+			
+			<?php $this->list_hooks( 'wp_title_rss' ); ?>
+			<?php $this->list_hooks( 'get_wp_title_rss' ); ?>
+			
+			<?php $this->list_hooks( 'the_permalink_rss' ); ?>
+			<?php $this->list_hooks( 'rss_enclosure' ); ?>
+			<?php $this->list_hooks( 'atom_enclosure' ); ?>
+			<?php $this->list_hooks( 'self_link' ); ?>
+			<?php $this->list_hooks( 'feed_content_type' ); ?>
 			<hr/>
         </div>
         
