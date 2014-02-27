@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.3
+Version: 1.4.4
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -62,6 +62,7 @@ class SB_RSS_feed_plus {
 			if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
 			if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
 			if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_override'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] = 0;
+			if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] = 0;
 			
 			$this->update_warning = true;
 			add_action( 'admin_notices', array( $this, "addAdminAlert" ) );
@@ -180,7 +181,7 @@ class SB_RSS_feed_plus {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function deactivate( $network_wide ) {
-		
+		$this->clear_WP_feed_cache();
 	} // end deactivate
 	
 	/**
@@ -189,13 +190,17 @@ class SB_RSS_feed_plus {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function uninstall( $network_wide ) {
-		
+		delete_option( 'sbrssfeedcfg_settings' );
 	} // end uninstall
 	
 	
 	/*--------------------------------------------*
 	 * Core Functions
 	 *---------------------------------------------*/
+	
+	public function clear_WP_feed_cache() {
+		// DELETE FROM `wp_options` WHERE `option_name` LIKE ('_transient%_feed_%')
+	}
 	
 	public function feed_getImage( $size ) {
 		global $post;
@@ -247,9 +252,8 @@ class SB_RSS_feed_plus {
 		}
 	}
 	
-	public function feed_update_content($content) {
+	public function feed_update_content( $content ) {
 		global $post;
-		
 		$content_new = '';
 		
 		if(has_post_thumbnail($post->ID)) {
@@ -257,7 +261,13 @@ class SB_RSS_feed_plus {
 			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" /></div>';
 		}
 		
-		$content_new .= '<div>' . $content . '</div>';
+		if ( ( $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] == 1 ) && ( $this->check_fsk() ) ) {
+			$content_new_full = apply_filters( 'the_content', get_the_content() );
+			$content_new_full = str_replace(']]>', ']]&gt;', $content_new_full);
+			$content_new .= '<div>' . $content_new_full . '</div>';
+		} else {
+			$content_new .= '<div>' . $content . '</div>';
+		}
 		
 		if ( $this->CFG['sbrssfeedcfg_signature_addSignature'] == 1 ) {
 			$content_new .= '<div>&nbsp;</div><div><em>';
@@ -266,6 +276,7 @@ class SB_RSS_feed_plus {
 			$content_new .= '</em></div>';
 		}
 		
+		//$content_new = str_replace( ']]>', ']]&gt;', $content_new );
 		return $content_new;
 	}
 	
@@ -309,11 +320,17 @@ class SB_RSS_feed_plus {
 		return $content_new;
 	}
 	
-	public function fulltext_override() {
+	public function check_fsk() {
+		$result = false;
 		$secret = $this->CFG['sbrssfeedcfg_fulltext_fulltext_override_secrete'];
 		$passed_secret = $_GET['fsk'];
+		if ( $secret == $passed_secret ) $result = true;
 		
-		if ( $secret == $passed_secret ) {
+		return( $result );
+	}
+	
+	public function fulltext_override() {
+		if ( $this->check_fsk() ) {
 			add_filter('pre_option_rss_use_excerpt', array( $this, 'fulltext_override_filter' ) );
 		}
 	}

@@ -110,6 +110,13 @@ $wpsf_settings[] = array(
             'std' => 0
         ),
 		array(
+            'id' => 'fulltext_add2description',
+            'title' => __( 'Fulltext in &lt;description&gt; tag ', 'SB_RSS_feed_plus' ),
+            'desc' => '<em>' . __( 'When enabled, &lt;description&gt; tag in RSS feed will be replaced with full article (only when called with query string <strong>?fsk=</strong>).', SB_RSS_feed_plus ) . '</em>' ,
+            'type' => 'checkbox',
+            'std' => 0
+        ),
+		array(
             'id' => 'fulltext_override_secrete',
             'title' => __( 'Override "secret" key (?fsk= param)', 'SB_RSS_feed_plus' ),
             'desc' => __( 'Fulltext RSS Feed:', 'SB_RSS_feed_plus' ) . ' <a href="'.$rss_fulltext_link.'" target="_blank">' . $rss_fulltext_link . '</a>',
