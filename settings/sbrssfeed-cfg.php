@@ -2,14 +2,11 @@
 global $wpsf_settings;
 $CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
 
-$thumbs = array(
-	'full' => __( '= Full size =', 'SB_RSS_feed_plus' ),
-	'thumbnail' => __( 'Thumbnail', 'SB_RSS_feed_plus' ),
-	'medium' => __( 'Medium size', 'SB_RSS_feed_plus' ),
-	'large ' => __( 'Large size', 'SB_RSS_feed_plus' )
-);
-//$thumbs_raw = get_intermediate_image_sizes();
-//foreach( $thumbs_raw as $th ) { $thumbs[$th] = __( $th, 'SB_RSS_feed_plus' ); }
+$thumbs = array( 'full' => __( '= Full size =', 'SB_RSS_feed_plus' ) );
+$thumbs_raw = get_intermediate_image_sizes();
+foreach( $thumbs_raw as $th ) {
+	$thumbs[$th] = __( $th, 'SB_RSS_feed_plus' );
+}
 
 $wpsf_settings[] = array(
     'section_id' => 'tags',

@@ -3,13 +3,13 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.4
+Version: 1.4.5
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
 License:
 
-  Copyright 2013 Ladislav Soukup (ladislav.soukup@gmail.com)
+  Copyright 2013-2014 Ladislav Soukup (ladislav.soukup@gmail.com)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as 
@@ -46,6 +46,11 @@ class SB_RSS_feed_plus {
 		// Load plugin text domain
 		load_plugin_textdomain( 'SB_RSS_feed_plus', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 		
+		/* wait for theme to load, then continue... */
+		add_action( 'after_setup_theme',  array( $this, '__construct_after_theme' ) );
+	} // end constructor
+	
+	public function __construct_after_theme() {
 		/* admin options */
 		require_once( $this->plugin_path .'wp-settings-framework.php' );
         $this->wpsf = new WordPressSettingsFramework( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
@@ -93,8 +98,7 @@ class SB_RSS_feed_plus {
 		
 		if ( $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] == 1 )
 			$this->fulltext_override();
-		
-	} // end constructor
+	}
 	
 	public function addAdminAlert() {
 		if ( current_user_can( 'install_plugins' ) ) { ?>
@@ -138,6 +142,13 @@ class SB_RSS_feed_plus {
         <div class="wrap">
             <div id="icon-options-general" class="icon32"></div>
 			
+			<!--
+			<a href="?page=sbrss_feed_plus&amp;settings-updated=true" class="button" style="float: right; margin: 10px 5px 15px 0;"><?php _e( 'Clear RSS cache', 'SB_RSS_feed_plus' ); ?></a>
+			-->
+			<?php if ( $_GET['settings-updated'] == 'true' ) {
+				$this->clear_WP_feed_cache();
+			} ?>
+			
 			<h2><?php _e( 'SB RSS Feed plus - Settings', 'SB_RSS_feed_plus' ); ?></h2>
             <?php 
             // Output your settings form
@@ -172,7 +183,7 @@ class SB_RSS_feed_plus {
 	 * @param	boolean	$network_wide	True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog 
 	 */
 	public function activate( $network_wide ) {
-		
+		$this->clear_WP_feed_cache();
 	} // end activate
 	
 	/**
@@ -191,6 +202,7 @@ class SB_RSS_feed_plus {
 	 */
 	public function uninstall( $network_wide ) {
 		delete_option( 'sbrssfeedcfg_settings' );
+		$this->clear_WP_feed_cache();
 	} // end uninstall
 	
 	
@@ -199,7 +211,16 @@ class SB_RSS_feed_plus {
 	 *---------------------------------------------*/
 	
 	public function clear_WP_feed_cache() {
-		// DELETE FROM `wp_options` WHERE `option_name` LIKE ('_transient%_feed_%')
+		global $wpdb;
+		//$wpdb->query( "DELETE FROM `" . $wpdb->prefix . "options` WHERE `option_name` LIKE ('_transient%_feed_%')" );
+		
+		?>
+		<div class="updated">
+			<p>
+				<?php _e( 'RSS feed will be updated after publishing new post...', 'SB_RSS_feed_plus' ); ?>
+			</p>
+		</div>
+		<?php
 	}
 	
 	public function feed_getImage( $size ) {
