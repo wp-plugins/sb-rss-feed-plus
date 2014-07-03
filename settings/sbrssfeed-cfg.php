@@ -102,7 +102,7 @@ $wpsf_settings[] = array(
 		array(
             'id' => 'fulltext_override',
             'title' => __( 'Enable fulltext override', 'SB_RSS_feed_plus' ),
-            'desc' => $rss_use_excerpt ? '<em>' . __( 'When enabled, you can request RSS Feed with full post content with special URL (added query string <strong>?fsk=</strong>)', 'SB_RSS_feed_plus' ) . '</em>' : '<em>' . __( 'You don\'t need to override WordPress settings - your feed already contains full post content.', SB_RSS_feed_plus ) . '</em>' ,
+            'desc' => $rss_use_excerpt ? '<em>' . __( 'When enabled, you can request RSS Feed with full post content with special URL (added query string <strong>?fsk=</strong>)', 'SB_RSS_feed_plus' ) . '</em>' : '<em>' . __( 'You don\'t need to override WordPress settings - your feed already contains full post content.', 'SB_RSS_feed_plus' ) . '</em>' ,
             'type' => 'checkbox',
             'std' => 0
         ),
