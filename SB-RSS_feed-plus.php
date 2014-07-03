@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.5
+Version: 1.4.6
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -27,7 +27,7 @@ License:
 */
 
 class SB_RSS_feed_plus {
-	private $plugin_path;
+	public $plugin_path;
     private $wpsf;
 	private $CFG;
 	public $cfg_version = '1.1.1';
@@ -45,6 +45,14 @@ class SB_RSS_feed_plus {
 		
 		// Load plugin text domain
 		load_plugin_textdomain( 'SB_RSS_feed_plus', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+		
+		// add admin menu item
+		add_action( 'admin_menu', array(&$this, 'admin_menu') );
+		
+		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
+		register_activation_hook( __FILE__, array( $this, 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+		register_uninstall_hook( __FILE__, array( 'SB_RSS_feed_plus', 'uninstall' ) );
 		
 		/* wait for theme to load, then continue... */
 		add_action( 'after_setup_theme',  array( $this, '__construct_after_theme' ) );
@@ -74,14 +82,6 @@ class SB_RSS_feed_plus {
 		}
 		add_action( 'wpsf_before_settings_fields', array( $this, 'update_current_version' ) );
 		add_action( 'wpsf_after_settings', array( $this, 'plugin_donation' ) );
-		
-		// add admin menu item
-		add_action( 'admin_menu', array(&$this, 'admin_menu') );
-		
-		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
-		register_uninstall_hook( __FILE__, array( $this, 'uninstall' ) );
 		
 		// add_action( "rss2_ns", array( $this, "feed_addNameSpace") );
 		add_action( "rss_item", array( $this, "feed_addMeta" ), 5, 1 );
@@ -145,9 +145,9 @@ class SB_RSS_feed_plus {
 			<!--
 			<a href="?page=sbrss_feed_plus&amp;settings-updated=true" class="button" style="float: right; margin: 10px 5px 15px 0;"><?php _e( 'Clear RSS cache', 'SB_RSS_feed_plus' ); ?></a>
 			-->
-			<?php if ( $_GET['settings-updated'] == 'true' ) {
+			<?php if( !empty( $_GET['settings-updated'] )) { if ( $_GET['settings-updated'] == 'true' ) {
 				$this->clear_WP_feed_cache();
-			} ?>
+			} } ?>
 			
 			<h2><?php _e( 'SB RSS Feed plus - Settings', 'SB_RSS_feed_plus' ); ?></h2>
             <?php 
@@ -202,7 +202,6 @@ class SB_RSS_feed_plus {
 	 */
 	public function uninstall( $network_wide ) {
 		delete_option( 'sbrssfeedcfg_settings' );
-		$this->clear_WP_feed_cache();
 	} // end uninstall
 	
 	
@@ -214,13 +213,6 @@ class SB_RSS_feed_plus {
 		global $wpdb;
 		//$wpdb->query( "DELETE FROM `" . $wpdb->prefix . "options` WHERE `option_name` LIKE ('_transient%_feed_%')" );
 		
-		?>
-		<div class="updated">
-			<p>
-				<?php _e( 'RSS feed will be updated after publishing new post...', 'SB_RSS_feed_plus' ); ?>
-			</p>
-		</div>
-		<?php
 	}
 	
 	public function feed_getImage( $size ) {
@@ -344,7 +336,9 @@ class SB_RSS_feed_plus {
 	public function check_fsk() {
 		$result = false;
 		$secret = $this->CFG['sbrssfeedcfg_fulltext_fulltext_override_secrete'];
-		$passed_secret = $_GET['fsk'];
+		//$passed_secret = $_GET['fsk'];
+		$passed_secret = ( empty( $_GET['fsk'] ) ) ? '' : $_GET['fsk'];
+		
 		if ( $secret == $passed_secret ) $result = true;
 		
 		return( $result );

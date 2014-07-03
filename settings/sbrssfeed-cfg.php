@@ -1,6 +1,6 @@
 <?php
-global $wpsf_settings;
-$CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );
+global $wpsf_settings, $SB_RSS_feed_plus;
+$CFG = wpsf_get_settings( $SB_RSS_feed_plus->plugin_path .'settings/sbrssfeed-cfg.php' );
 
 $thumbs = array( 'full' => __( '= Full size =', 'SB_RSS_feed_plus' ) );
 $thumbs_raw = get_intermediate_image_sizes();
@@ -109,7 +109,7 @@ $wpsf_settings[] = array(
 		array(
             'id' => 'fulltext_add2description',
             'title' => __( 'Fulltext in &lt;description&gt; tag ', 'SB_RSS_feed_plus' ),
-            'desc' => '<em>' . __( 'When enabled, &lt;description&gt; tag in RSS feed will be replaced with full article (only when called with query string <strong>?fsk=</strong>).', SB_RSS_feed_plus ) . '</em>' ,
+            'desc' => '<em>' . __( 'When enabled, &lt;description&gt; tag in RSS feed will be replaced with full article (only when called with query string <strong>?fsk=</strong>).', 'SB_RSS_feed_plus' ) . '</em>' ,
             'type' => 'checkbox',
             'std' => 0
         ),
