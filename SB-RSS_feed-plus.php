@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.8
+Version: 1.4.9
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -65,21 +65,24 @@ class SB_RSS_feed_plus {
 		
 		/* load CFG */
 		$this->CFG = wpsf_get_settings( $this->plugin_path .'settings/sbrssfeed-cfg.php' );  // print_r($this->CFG);
+		// SET defaults if empty
+		if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_enclosure'])) $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] = 1;
+		if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] = 1;
+		if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'] = 1;
+		if (!isset($this->CFG['sbrssfeedcfg_description_extend_description'])) $this->CFG['sbrssfeedcfg_description_extend_description'] = 1;
+		if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
+		if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
+		if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_override'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] = 0;
+		if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] = 0;
 		
-		if ( $this->CFG['sbrssfeedcfg_info_version'] !== $this->cfg_version ) {
-			// SET defaults, mark this version as current
-			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_enclosure'])) $this->CFG['sbrssfeedcfg_tags_addTag_enclosure'] = 1;
-			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] = 1;
-			if (!isset($this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'])) $this->CFG['sbrssfeedcfg_tags_addTag_mediaThumbnail'] = 1;
-			if (!isset($this->CFG['sbrssfeedcfg_description_extend_description'])) $this->CFG['sbrssfeedcfg_description_extend_description'] = 1;
-			if (!isset($this->CFG['sbrssfeedcfg_description_extend_content'])) $this->CFG['sbrssfeedcfg_description_extend_content'] = 1;
-			if (!isset($this->CFG['sbrssfeedcfg_signature_addSignature'])) $this->CFG['sbrssfeedcfg_signature_addSignature'] = 0;
-			if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_override'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_override'] = 0;
-			if (!isset($this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'])) $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] = 0;
-			
+		if ( $this->CFG['sbrssfeedcfg_info_version'] == '' ) {
+			// new install
+		} else if ( $this->CFG['sbrssfeedcfg_info_version'] !== $this->cfg_version ) {
+			// show settings update warning...
 			$this->update_warning = true;
 			add_action( 'admin_notices', array( $this, "addAdminAlert" ) );
 		}
+		
 		add_action( 'wpsf_before_settings_fields', array( $this, 'update_current_version' ) );
 		add_action( 'wpsf_after_settings', array( $this, 'plugin_donation' ) );
 		
@@ -104,7 +107,7 @@ class SB_RSS_feed_plus {
 		if ( current_user_can( 'install_plugins' ) ) { ?>
 		<div class="updated">
 			<p>
-				<?php _e( '<b>SB RSS Feed plus Warning</b>: Settings needs to be updated...', 'SB_RSS_feed_plus' ); ?>
+				<?php _e( '<b>SB RSS Feed plus Warning</b>: Please, update plugin settings...', 'SB_RSS_feed_plus' ); ?>
 				&nbsp;&nbsp;
 				<a href="options-general.php?page=sbrss_feed_plus" class="button"><?php _e( 'Update settings', 'SB_RSS_feed_plus' ); ?></a>
 			</p>
@@ -281,14 +284,13 @@ class SB_RSS_feed_plus {
 			}
 		}
 	}
-	
-	public function feed_update_content( $content ) {
+	public function feed_update_content( $content ) {	
 		global $post;
 		$content_new = '';
 		
 		if(has_post_thumbnail($post->ID)) {
 			$image = $this->feed_getImage( $this->CFG['sbrssfeedcfg_description_extend_content_size'] );
-			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="90%" title="'.$image['meta_desc']['caption'].'" alt="'.$image['meta_desc']['alt'].'" data-description="'.$image['meta_desc']['description'].'" /></div>';
+			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" title="'.$image['meta_desc']['caption'].'" alt="'.$image['meta_desc']['alt'].'" data-description="'.$image['meta_desc']['description'].'" /></div>';
 		}
 		
 		if ( ( $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] == 1 ) && ( $this->check_fsk() ) ) {
