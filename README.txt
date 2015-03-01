@@ -58,7 +58,7 @@ No more settings are needed.
 
 == Changelog ==
 = 1.4.10 =
-- fixed double "settings saves" message
+- fixed double "settings saved" message
 
 = 1.4.9 =
 - fixed warning about plugin settings for new installs
