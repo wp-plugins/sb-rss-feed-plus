@@ -63,7 +63,7 @@ if( !class_exists('WordPressSettingsFramework') ){
          */
         function admin_notices()
     	{
-        	settings_errors();
+        	//settings_errors();
     	}
     	
     	/**

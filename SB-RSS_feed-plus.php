@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.9
+Version: 1.4.10
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
