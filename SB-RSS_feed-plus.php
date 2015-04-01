@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.10
+Version: 1.4.11
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -271,9 +271,9 @@ class SB_RSS_feed_plus {
 					if (!empty($image_mediaContent['meta']['copyright'])) $image_copyright = $image_mediaContent['meta']['copyright'];
 					
 					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image_mediaContent[0] . '" width="' . $image_mediaContent[1] . '" height="' . $image_mediaContent[2] . '" medium="image" type="image/jpeg">' . "\n";
-					echo '	<media:copyright>' . $image_copyright . '</media:copyright>' . "\n";
-					echo '	<media:title>' . $image_mediaContent['meta_desc']['caption'] . '</media:title>' . "\n";
-					echo '	<media:description type="plain">' . $image_mediaContent['meta_desc']['description'] . '</media:description>' . "\n";
+					echo '	<media:copyright>' . htmlentities($image_copyright) . '</media:copyright>' . "\n";
+					echo '	<media:title>' . htmlentities($image_mediaContent['meta_desc']['caption']) . '</media:title>' . "\n";
+					echo '	<media:description type="html">' . htmlentities($image_mediaContent['meta_desc']['description']) . '</media:description>' . "\n";
 					echo '</media:content>' . "\n";
 				}
 				
@@ -290,7 +290,8 @@ class SB_RSS_feed_plus {
 		
 		if(has_post_thumbnail($post->ID)) {
 			$image = $this->feed_getImage( $this->CFG['sbrssfeedcfg_description_extend_content_size'] );
-			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" title="'.$image['meta_desc']['caption'].'" alt="'.$image['meta_desc']['alt'].'" data-description="'.$image['meta_desc']['description'].'" /></div>';
+			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" title="'.htmlentities($image['meta_desc']['caption']).'" alt="'.htmlentities($image['meta_desc']['alt']).'" /></div>';
+			/* data-description="'.htmlentities($image['meta_desc']['description']).'" */
 		}
 		
 		if ( ( $this->CFG['sbrssfeedcfg_fulltext_fulltext_add2description'] == 1 ) && ( $this->check_fsk() ) ) {
