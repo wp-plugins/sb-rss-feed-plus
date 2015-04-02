@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=P6CKT
 Tags: rss, feed, image, post thumbnail, add, enhance, enhanced, plus, better, flipboard, google currents, content:encoded, media:content, media, content, ad, ads, advertisement, override
 Requires at least: 3.5.0
 Tested up to: 4.1.1
-Stable tag: 1.4.11
+Stable tag: 1.4.12
 
 This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
 
@@ -57,6 +57,9 @@ No more settings are needed.
 1. Plugin settings
 
 == Changelog ==
+= 1.4.12 =
+- second hotfix for bug #24
+
 = 1.4.11 =
 - hotfix for bug #24 introduced in version 1.4.8 - image title, description and copyright are not escaped and can breake the feed
 

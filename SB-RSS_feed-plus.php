@@ -3,7 +3,7 @@
 Plugin Name: SB-RSS_feed-plus
 Plugin URI: http://git.ladasoukup.cz/sb-rss-feed-plus
 Description: This plugin will add post thumbnail to RSS feed items. Add signatur or simple ads. Create fulltext RSS (via special url).
-Version: 1.4.11
+Version: 1.4.12
 Author: Ladislav Soukup (ladislav.soukup@gmail.com)
 Author URI: http://www.ladasoukup.cz/
 Author Email: ladislav.soukup@gmail.com
@@ -232,10 +232,10 @@ class SB_RSS_feed_plus {
 				
 				$image_attch = get_post( $thumbnail_id );
 				$image['meta_desc'] = array(
-					'title' => $image_attch->post_title,
-					'caption' => $image_attch->post_excerpt,
-					'alt' => get_post_meta( $image_attch->ID, '_wp_attachment_image_alt', true ),
-					'description' => $image_attch->post_content
+					'title' => strip_tags( $image_attch->post_excerpt ),
+					'alt' => strip_tags( get_post_meta( $image_attch->ID, '_wp_attachment_image_alt', true ) ),
+					'description' => strip_tags( $image_attch->post_content ),
+					'description_html' => $image_attch->post_content
 				);
 				
 				//print_r($image); die();
@@ -267,13 +267,15 @@ class SB_RSS_feed_plus {
 				}
 				
 				if ( $this->CFG['sbrssfeedcfg_tags_addTag_mediaContent'] == 1 ) {
-					$image_copyright = get_bloginfo( 'name' );
+					$image_copyright = strip_tags(get_bloginfo( 'name' ));
 					if (!empty($image_mediaContent['meta']['copyright'])) $image_copyright = $image_mediaContent['meta']['copyright'];
 					
 					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image_mediaContent[0] . '" width="' . $image_mediaContent[1] . '" height="' . $image_mediaContent[2] . '" medium="image" type="image/jpeg">' . "\n";
-					echo '	<media:copyright>' . htmlentities($image_copyright) . '</media:copyright>' . "\n";
-					echo '	<media:title>' . htmlentities($image_mediaContent['meta_desc']['caption']) . '</media:title>' . "\n";
-					echo '	<media:description type="html">' . htmlentities($image_mediaContent['meta_desc']['description']) . '</media:description>' . "\n";
+					if ($this->CFG['sbrssfeedcfg_metaExtension_addMediaMetaCopyright'] != 1) {
+						echo '	<media:copyright>' . $image_copyright . '</media:copyright>' . "\n";
+						echo '	<media:title>' . $image_mediaContent['meta_desc']['title'] . '</media:title>' . "\n";
+						echo '	<media:description type="html"><![CDATA[' . $image_mediaContent['meta_desc']['description_html'] . ']]></media:description>' . "\n";
+					}
 					echo '</media:content>' . "\n";
 				}
 				
@@ -290,7 +292,7 @@ class SB_RSS_feed_plus {
 		
 		if(has_post_thumbnail($post->ID)) {
 			$image = $this->feed_getImage( $this->CFG['sbrssfeedcfg_description_extend_content_size'] );
-			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" title="'.htmlentities($image['meta_desc']['caption']).'" alt="'.htmlentities($image['meta_desc']['alt']).'" /></div>';
+			$content_new .= '<div style="margin: 5px 5% 10px 5%;"><img src="' . $image[0] . '" width="' . $image[1] . '" height="' . $image[2] . '" title="'.$image['meta_desc']['title'].'" alt="'.$image['meta_desc']['alt'].'" /></div>';
 			/* data-description="'.htmlentities($image['meta_desc']['description']).'" */
 		}
 		

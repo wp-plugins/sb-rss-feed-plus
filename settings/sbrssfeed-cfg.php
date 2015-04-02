@@ -124,6 +124,22 @@ $wpsf_settings[] = array(
 );
 
 $wpsf_settings[] = array(
+    'section_id' => 'metaExtension',
+    'section_title' => __( 'RSS and Image extra meta data', 'SB_RSS_feed_plus' ),
+    'section_description' => __( '', 'SB_RSS_feed_plus' ),
+    'section_order' => 28,
+    'fields' => array(
+		array(
+            'id' => 'addMediaMetaCopyright',
+            'title' => __( 'Remove copyright meta', 'SB_RSS_feed_plus' ),
+            'desc' => 'tags "media:copyright", "media:title" and "media:description"',
+            'type' => 'checkbox',
+            'std' => 0
+        )
+	)
+);
+
+$wpsf_settings[] = array(
     'section_id' => 'signature',
     'section_title' => __( 'RSS Feed signature', 'SB_RSS_feed_plus' ),
     'section_description' => __( 'Add "Source: XYZ" text to end of the content of each feed item.', 'SB_RSS_feed_plus' ),
