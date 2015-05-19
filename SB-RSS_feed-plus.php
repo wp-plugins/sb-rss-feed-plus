@@ -272,8 +272,8 @@ class SB_RSS_feed_plus {
 					
 					echo '<media:content xmlns:media="http://search.yahoo.com/mrss/" url="' . $image_mediaContent[0] . '" width="' . $image_mediaContent[1] . '" height="' . $image_mediaContent[2] . '" medium="image" type="image/jpeg">' . "\n";
 					if ($this->CFG['sbrssfeedcfg_metaExtension_addMediaMetaCopyright'] != 1) {
-						echo '	<media:copyright>' . $image_copyright . '</media:copyright>' . "\n";
-						echo '	<media:title>' . $image_mediaContent['meta_desc']['title'] . '</media:title>' . "\n";
+						echo '	<media:copyright>' . htmlentities($image_copyright) . '</media:copyright>' . "\n";
+						echo '	<media:title>' . htmlentities($image_mediaContent['meta_desc']['title']) . '</media:title>' . "\n";
 						echo '	<media:description type="html"><![CDATA[' . $image_mediaContent['meta_desc']['description_html'] . ']]></media:description>' . "\n";
 					}
 					echo '</media:content>' . "\n";
