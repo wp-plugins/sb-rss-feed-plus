@@ -58,6 +58,10 @@ No more settings are needed.
 
 == Changelog ==
 = 1.4.14 =
+- fixing Issue #29: Settings Panel Does Not Show.
+- fixing Issue #17: You do not have sufficient permissions to access this page.
+
+= 1.4.14 =
 - fixing Issue #26: Regression v1.4.13 due to fix for #25
 
 = 1.4.13 =
